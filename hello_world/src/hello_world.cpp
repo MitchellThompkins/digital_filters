@@ -1,6 +1,6 @@
 #include "hello_world.hpp"
 
-int HelloWorld::incrementX( int n )
+int HelloWorld::increment( int n )
 {
     return _x+=n;
 }

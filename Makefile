@@ -16,18 +16,9 @@ BUILD_TYPE_LOWER := $(shell echo $(BUILD_TYPE) | tr A-Z a-z)
 BUILD_PREFIX ?= $(THIS_DIR)/build/$(BUILD_TYPE_LOWER)
 
 BUILD_TOOL ?= make
-ifneq "$(BUILD_TOOL)" "ninja"
-    ifneq "$(BUILD_TOOL)" "make"
-        $(error Bad BUILD_TOOL value "$(BUILD_TOOL)" please use "ninja" or "make")
-    endif
-endif
 
-CMAKE_GENERATOR ?= make
-BUILD_FILE ?= build.make
-ifeq "$(BUILD_TOOL)" "make"
-    BUILD_FILE = Makefile
-    CMAKE_GENERATOR = "Unix Makefiles"
-endif
+BUILD_FILE = Makefile
+CMAKE_GENERATOR = "Unix Makefiles"
 
 # Get number of jobs Make is being called with. This only works with '-j' and not --jobs'
 BUILD_TOOL_PID := $(shell echo $$PPID)
@@ -60,30 +51,17 @@ h:
 	@echo 'remove'
 	@echo '    delete the build directory'
 	@echo
-	@echo 'ctest [a="<ctest arguments>"]'
-	@echo '    Runs ctest'
-	@echo '    e.g.'
-	@echo '    $$make ctest a="-R target.test"'
+	@echo 'format'
+	@echo '    runs clang-format on .h/.hpp and .c/.cpp files'
 	@echo
-	@echo 'cmd a="<shell command>"'
-	@echo '    Runs a abitrary shell command in the build directory specified'
-	@echo '    by the BUILD_TYPE.'
-	@echo '    e.g.'
-	@echo '    $$make cmd a="ctest -R target.test"'
+	@echo 'test'
+	@echo '    runs unit tests with gtest'
 	@echo
 	@echo 'OPTIONS:'
 	@echo
 	@echo 'BUILD_TYPE=<Debug|Release>'
 	@echo '    specifies the CMake build type, and the build subdirectory'
 	@echo '    default: Debug'
-	@echo
-	@echo 'BUILD_TOOL=<ninja|make>'
-	@echo '    Specifies the cmake generator'
-	@echo '    default: ninja'
-	@echo
-	@echo 'CLANG_TIDY_FIX=<ON|OFF>'
-	@echo '    Specifies if clang-tidy should run fixits or not'
-	@echo '    default: OFF'
 	@echo
 	@echo 'INSTALL_PREFIX=<path>'
 	@echo '    Specifies the CMAKE_INSTALL_PREFIX CMake variable value'
@@ -92,12 +70,6 @@ h:
 	@echo
 	@echo '-j <jobs>'
 	@echo '    <jobs> pass -j flag to underlying BUILD_TOOL to set the job number'
-	@echo '    default: '''
-	@echo
-	@echo 'EXAMPLES:'
-	@echo
-	@echo 'make BUILD_TYPE=Release all -j8'
-	@echo 'make target'
 
 .PHONY: format
 format:
@@ -136,14 +108,6 @@ cmd: $(BUILD_PREFIX)/$(BUILD_FILE)
 	export CTEST_OUTPUT_ON_FAILURE=1; \
 	cd $(BUILD_PREFIX); \
 	${a};
-
-
-.PHONY: ctest
-ctest:
-	export CTEST_OUTPUT_ON_FAILURE=1; \
-	cd $(BUILD_PREFIX); \
-	ctest ${a};
-
 
 DOCKER_IMAGE_NAME ?= c-and-cpp-env
 

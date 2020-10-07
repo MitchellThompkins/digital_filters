@@ -101,7 +101,7 @@ h:
 
 .PHONY: format
 format:
-	find **/* -iname *.h -o -iname *.cpp -iname *.hpp -iname *.c | xargs clang-format -i --style=WebKit
+	find . -iname *.hpp -o -iname *.cpp -o -iname *.h -o -iname *.c | xargs clang-format -i --style=WebKit
 
 .PHONY: remove
 remove:

@@ -99,6 +99,10 @@ h:
 	@echo 'make BUILD_TYPE=Release all -j8'
 	@echo 'make target'
 
+.PHONY: format
+format:
+find **/* -iname *.h -o -iname *.cpp -iname *.hpp -iname *.c | xargs clang-format -i --style=WebKit
+
 .PHONY: remove
 remove:
 	rm -rf build/
@@ -146,7 +150,6 @@ DOCKER_IMAGE_NAME ?= c-and-cpp-env
 .PHONY: docker-build
 docker-build:
 	docker build --tag $(DOCKER_IMAGE_NAME) .
-
 
 
 UID=$(shell id -u)

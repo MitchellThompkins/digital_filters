@@ -3,10 +3,10 @@
 
 TEST(hello_world, first)
 {
-    static constexpr int h { 5 };
-    static constexpr int i { 6 };
-    static constexpr int j { 99 };
-    static constexpr int k { 6 - j };
+    static constexpr int h{ 5 };
+    static constexpr int i{ 6 };
+    static constexpr int j{ 99 };
+    static constexpr int k{ 6 - j };
     HelloWorld test(h);
 
     test.increment();

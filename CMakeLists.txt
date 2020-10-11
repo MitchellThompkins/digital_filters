@@ -27,3 +27,4 @@ macro(create_test target)
 endmacro()
 
 add_subdirectory(hello_world)
+add_subdirectory(root_finder)

@@ -9,16 +9,19 @@ be used on embedded systems.
 
 They have the advantage that they:
 * Do not rely on the standard library
-* Do not dyanmically allocate any memory
+* Do not dynamically allocate any memory
 * Can be used by only specifying the filter parameters
 * Filter coefficients are solved at compile-time
 
-# Assumptions
+# Build Requirements
+* >= C++14
+
+# Usecase Assumptions
 * The user knows the sample rate of the filter
 * The filter is called at a consistent rate
 
 # IIR Filters
-* Critically damped _n_-order
+* Critically damped _n_-order LPF
 * Butterworth
 * Chebyshev Type I
 * Chebyshev Type II
@@ -27,6 +30,7 @@ They have the advantage that they:
 * Elliptic
 * Bessel
 * Gaussian
+* Custom Coefficients
 
 # FIR Filters
 

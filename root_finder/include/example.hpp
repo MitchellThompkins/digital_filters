@@ -3,9 +3,45 @@
 
 #include "stddef.h"
 
-constexpr int gcd(int a, int b){
-  return (b== 0) ? a : gcd(b, a % b);
+constexpr float calq( const float a )
+{
+    float f {0.0F};
+    if(a<=0)
+        f=2;
+    else
+        f=a;
+
+    if( a<=10000.0F )
+        f = calq(f*10.3F);
+
+    return f;
 }
+
+constexpr void test( float *a, size_t s )
+{
+    for( size_t i {0}; i != s; i++)
+        *(a+i) = calq(static_cast<float>(i)*20.0F);
+    return;
+}
+
+template<typename T, size_t N>
+class Coeff
+{
+    public:
+        constexpr Coeff():_coeff()
+        {
+            test(&_coeff[0], N);
+        }
+
+        constexpr T operator[](const size_t i)
+        {
+            return _coeff[i%N];
+        }
+    private:
+
+        T _coeff[N];
+        size_t _size {N};
+};
 
 template< size_t N >
 class Example
@@ -14,14 +50,14 @@ class Example
         Example() = default;
         ~Example() = default;
 
-        int getN();
-        int getM();
+        constexpr float operator[](const size_t i)
+        {
+            return _coeff[i];
+        }
+
 
     private:
-        int _n {N};
-        static constexpr int _div1 {36};
-        static constexpr int _div2 {30};
-        int _m = gcd( _div1, _div2 );
+        Coeff<float,N> _coeff;
 };
 
 #include "example.tpp"

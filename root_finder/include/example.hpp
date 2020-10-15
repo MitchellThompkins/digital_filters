@@ -2,6 +2,7 @@
 #define EXAMPLE_HPP
 
 #include "stddef.h"
+#include "gcem.hpp"
 
 constexpr float calq( const float a )
 {
@@ -20,7 +21,8 @@ constexpr float calq( const float a )
 constexpr void test( float *a, size_t s )
 {
     for( size_t i {0}; i != s; i++)
-        *(a+i) = calq(static_cast<float>(i)*20.0F);
+        *(a+i) = gcem::factorial(i);
+        //*(a+i) = calq(static_cast<float>(i)*20.0F);
     return;
 }
 

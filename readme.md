@@ -14,7 +14,8 @@ They have the advantage that they:
 * Filter coefficients are solved at compile-time
 
 # Build Requirements
-* >= C++14
+* C++14 for compile time coefficient calculation
+* C++11 is calculated at run time
 
 # Usecase Assumptions
 * The user knows the sample rate of the filter
